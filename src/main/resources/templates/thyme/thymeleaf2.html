@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h3>th:href</h3>
+    <pre> a 태그의 href 속성과 동일,링크 는 @{}을 이용 해서 사용
+        웹 애플리케이션을 구분하는 콘텍스트 경로(Context Path)를 포함한다.</pre>
+    <!--*****************************************************************
+                http://localhost:8090/thyme/test3
+           ***************************************************************** -->
+    <ul>
+        <li th:each="list:${lists}">
+            <a th:href="@{/thyme/test3}">[[${list}]]</a>
+
+        </li>
+
+    </ul>
+    <!--*****************************************************************
+               http://localhost:8090/thyme/test3?id=2
+          ***************************************************************** -->
+    <h3>파라미터추가하기 - ()안에 이름과 값 추가</h3>
+    <ul>
+        <li th:each="list:${lists}">
+            <a th:href="@{/thyme/test3(id=${list.id})}">[[${list}]]</a>
+        </li>
+
+    </ul>
+    <!--*****************************************************************
+                  http://localhost:8090/thyme/test3/3
+              ***************************************************************** -->
+    <h3>path로 추가 - ex> /thyme/test3/1 </h3>
+    <ul>
+        <li th:each="list:${lists}">
+            <a th:href="@{/thyme/test3/{id}(id = ${list.id})}">[[${list}]]</a>
+        </li>
+
+    </ul>
+
+
+    <th:block th:unless="${authInfo}"><p>환영합니다.</p>
+        <p><a href="" th:href="@{/register/step1}">[회원 가입하기]</a> <a href="" th:href="@{/login}">[로그인]</a></p></th:block>
+    <th:block th:if="${authInfo}"><p><span th:text="${authInfo.name}"></span>님, 환영합니다.</p>
+        <p><a href="" th:href="@{/edit/changePassword}">[비밀번호 변경]</a> <a href="" th:href="@{/logout}">[로그아웃]</a></p>
+    </th:block>
+</body>
+</html>
